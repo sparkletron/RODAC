@@ -7,7 +7,7 @@
 #include <tms99XX.h>
 #include <tms99XXascii.h>
 
-#ifdef _COLECO
+#if defined(_COLECO) || defined(_COLECO_SGM)
   __at 0x8024 const char game_info[] = "HELLO WORLD!\x1E\x1F/JAY CONVERTINO/2024";
 #endif
 

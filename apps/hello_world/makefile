@@ -11,6 +11,12 @@ BIN    := $(addprefix $(MAKECMDGOALS)_, $(BIN))
 DIROBJ := $(addprefix $(MAKECMDGOALS)_, $(DIROBJ))
 endif
 
+ifeq (coleco_sgm,$(MAKECMDGOALS))
+include ../../arch/coleco_sgm.mk
+BIN    := $(addprefix $(MAKECMDGOALS)_, $(BIN))
+DIROBJ := $(addprefix $(MAKECMDGOALS)_, $(DIROBJ))
+endif
+
 # setup a way of changin architecures, maybe different makefiles that creates a default lflags for different code-loc and such.
 CRT	:= $(BASELIBPATH)$(BASELIBARCH)/obj/crt0.rel
 
@@ -43,6 +49,8 @@ all:
 	$(error ALL TARGET BUILDS NOTHING, SYSTEM MUST BE THE TARGET)
 
 coleco: $(BASELIBNAME) $(LIBNAME) $(BIN)
+
+coleco_sgm: $(BASELIBNAME) $(LIBNAME) $(BIN)
 
 $(BIN): $(SRCIHX)
 	$(OBJDMP) -I ihex -O binary $< $@

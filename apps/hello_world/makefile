@@ -46,17 +46,17 @@ SRCIHX := $(addprefix $(DIROBJ)/, $(notdir $(SRC:.c=.ihx)))
 .PHONY: clean coleco all $(LIBNAME) $(BASELIBNAME)
 
 all:
-	$(error ALL TARGET BUILDS NOTHING, SYSTEM MUST BE THE TARGET)
+	$(error ALL TARGET BUILDS NOTHING, SELECT A SYSTEM AS A TARGET)
 
-coleco: $(BASELIBNAME) $(LIBNAME) $(BIN)
+coleco: $(BIN)
 
-coleco_sgm: $(BASELIBNAME) $(LIBNAME) $(BIN)
+coleco_sgm: $(BIN)
 
 $(BIN): $(SRCIHX)
 	$(OBJDMP) -I ihex -O binary $< $@
 
-$(SRCIHX): $(SRCREL)
-	$(CC) -o $@ $(LFLAGS) $^
+$(SRCIHX): $(SRCREL) $(BASELIBNAME) $(LIBNAME)
+	$(CC) -o $@ $(LFLAGS) $<
 
 $(SRCREL): $(SRC) | $(DIROBJ)
 	$(CC) -o $@ $(CFLAGS) $<

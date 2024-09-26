@@ -35,70 +35,12 @@
 #ifndef __LIB_SN76489
 #define __LIB_SN76489
 
-#include <xc.h>
 #include <stdint.h>
 
-/**
- * @struct s_sn76489 
- * @brief Struct for containing sn76489 instances 
- */
-struct s_sn76489
-{
-  /**
-   * @var s_sn76489::p_dataPortW
-   * data port to use for writing output data
-   */
-  volatile unsigned char *p_dataPortW;
-  /**
-   * @var s_sn76489::p_ctrlPortW
-   * port to use for control lines nCE, nWE. Will not change other port pins.
-   */
-  volatile unsigned char *p_ctrlPortW;
-  /**
-   * @var s_sn76489::p_readyPortR
-   * port to use to monitor for ready pin
-   */
-  volatile unsigned char *p_readyPortR;
-  /**
-   * @var s_sn76489::nWE
-   * active low write enable pin number
-   */
-  uint8_t nWE;
-  /**
-   * @var s_sn76489::nCE
-   * active low chip enable pin number
-   */
-  uint8_t nCE;
-  /**
-   * @var s_sn76489::ready
-   * active high chip ready pin number
-   */
-  uint8_t ready;
-};
-
 /***************************************************************************//**
- * @brief   Initialize sn76489 ports for correct I/O and set pin numbers
- * 
- * @param   p_sn76489 pointer to struct to contain port data.
- * @param   p_dataTRIS pointer to data direction register.
- * @param   p_ctrlTRIS pointer to control direction register.
- * @param   p_readyTRIS pointer to ready direction register.
- * @param   nWE is the pin number(bit) nWE is connected to on control port.
- * @param   nCE is the pin number(bit) nCE is connected to on control port.
- * @param   ready is the pin number(bit) ready is connected to on ready port.
+ * @brief   Initialize sn76489 to mute all channels
  ******************************************************************************/
-void initSN76489port(struct s_sn76489 *p_sn76489, volatile unsigned char *p_dataTRIS, volatile unsigned char *p_ctrlTRIS, volatile unsigned char *p_readyTRIS, uint8_t nWE, uint8_t nCE, uint8_t ready);
-
-/***************************************************************************//**
- * @brief   Initialize sn76489 struct with ports to use for input output, must match
- * direction registers above.
- * 
- * @param   p_sn76489 pointer to struct to contain port data.
- * @param   p_dataPortW pointer to data output port.
- * @param   p_ctrlPortW pointer to control output port.
- * @param   p_readyPortR pointer to ready output port.
- ******************************************************************************/
-void initSN76489(struct s_sn76489 *p_sn76489, volatile unsigned char *p_dataPortW, volatile unsigned char *p_ctrlPortW, volatile unsigned char *p_readyPortR);
+void initSN76489();
 
 /***************************************************************************//**
  * @brief   Calculate frequency from hertz to binary value.
@@ -113,36 +55,32 @@ uint16_t getSN76489_FreqDiv(uint32_t refClk, uint32_t voiceFreq);
 /***************************************************************************//**
  * @brief   Set sn76489 voice frequency
  * 
- * @param   p_sn76489 pointer to a struct that contains chip data.
  * @param   voice the voice (1,2, or 3) to set the frequency to.
  * @param   freqDiv is binary number to set the frequency (f = refClk/(32*freqDiv))
  ******************************************************************************/
-void setSN76489voice_freq(struct s_sn76489 *p_sn76489, uint8_t voice, uint16_t freqDiv);
+void setSN76489voice_freq(uint8_t voice, uint16_t freqDiv);
 
 /***************************************************************************//**
  * @brief   Set sn76489 voice attenuation
  * 
- * @param   p_sn76489 pointer to a struct that contains chip data.
  * @param   voice the voice (1,2, or 3) to set the attenuation to.
  * @param   attenuate : 8 = 16db, 4 = 8db, 2 = 4db, 1 = 2 db, 0 = 0 db?, 15 = Mute 
  ******************************************************************************/
-void setSN76489voice_attn(struct s_sn76489 *p_sn76489, uint8_t voice, uint8_t attenuate);
+void setSN76489voice_attn(uint8_t voice, uint8_t attenuate);
 
 /***************************************************************************//**
  * @brief   Set sn76489 noise attenuation
  * 
- * @param   p_sn76489 pointer to a struct that contains chip data.
  * @param   attenuate : 8 = 16db, 4 = 8db, 2 = 4db, 1 = 2 db, 15 = Mute 
  ******************************************************************************/
-void setSN76489noise_attn(struct s_sn76489 *p_sn76489, uint8_t attenuate);
+void setSN76489noise_attn(uint8_t attenuate);
 
 /***************************************************************************//**
  * @brief   Set sn76489 noise type
  * 
- * @param   p_sn76489 pointer to a struct that contains chip data.
  * @param   type : 0 = periodic, 1 = white.
  * @param   rate : 0 = N/512, 1 = N/2048, 2 = N/1024, 3 = voice 3 
  ******************************************************************************/
-void setSN76489noiseCtrl(struct s_sn76489 *p_sn76489, uint8_t type, uint8_t rate);
+void setSN76489noiseCtrl(uint8_t type, uint8_t rate);
 
 #endif

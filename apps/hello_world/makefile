@@ -20,9 +20,9 @@ endif
 # setup a way of changin architecures, maybe different makefiles that creates a default lflags for different code-loc and such.
 CRT	:= $(BASELIBPATH)$(BASELIBARCH)/obj/crt0.rel
 
-LIBPATH	= ../../drivers/tms99XX
+LIBPATH	:= ../../drivers/tms99XX ../../drivers/sn76489
 ifdef LIBPATH
-LIBNAME	:= $(addsuffix .lib,$(join $(LIBPATH)/,$(notdir $(LIBPATH))))
+LIBNAME	:= $(join $(addsuffix /,$(LIBPATH)),$(addsuffix .lib,$(notdir $(LIBPATH))))
 endif
 
 CC     := sdcc
@@ -65,9 +65,11 @@ $(DIROBJ):
 	mkdir -p $@
 
 $(LIBNAME) :
+	$(info BUILDING LIBRARY, $(@F))
 	$(MAKE) -C $(@D)
 
 $(BASELIBNAME) :
+	$(info BUILDING ARCH LIBRARY, $(@F))
 	$(MAKE) -C $(@D)
 
 clean:

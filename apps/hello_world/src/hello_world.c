@@ -4,6 +4,7 @@
 //******************************************************************************
 
 #include <base.h>
+#include <sn76489.h>
 #include <tms99XX.h>
 #include <tms99XXascii.h>
 
@@ -75,6 +76,10 @@ void main(void)
 
   /* enable screen */
   setTMS99XXblank(&tms99XX, 0);
+
+  setSN76489voice_attn(1, 2);
+  /* set frequency to 440 hz */
+  setSN76489voice_freq(1, 254);
 
   for(;;)
   {

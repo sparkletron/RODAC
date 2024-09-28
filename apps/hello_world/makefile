@@ -29,6 +29,13 @@ BIN    := $(addprefix $(MAKECMDGOALS)_, $(BIN))
 DIROBJ := $(addprefix $(MAKECMDGOALS)_, $(DIROBJ))
 endif
 
+ifeq (sg1000,$(MAKECMDGOALS))
+include ../../arch/sg1000.mk
+LIBPATH += ../../drivers/sn76489
+BIN    := $(addprefix $(MAKECMDGOALS)_, $(BIN))
+DIROBJ := $(addprefix $(MAKECMDGOALS)_, $(DIROBJ))
+endif
+
 ifeq (clean,$(MAKECMDGOALS))
 include ../../arch/msx.mk
 LIBPATH += ../../drivers/gisnd
@@ -71,6 +78,8 @@ coleco_sgm: $(BIN)
 
 msx: $(BIN)
 
+sg1000: $(BIN)
+
 $(BIN): $(SRCIHX)
 	$(OBJDMP) -I ihex -O binary $< $@
 
@@ -85,11 +94,11 @@ $(DIROBJ):
 
 $(LIBNAME) :
 	$(info BUILDING LIBRARY, $(@F))
-	$(MAKE) -C $(@D)
+	$(MAKE) -B -C $(@D)
 
 $(BASELIBNAME) :
 	$(info BUILDING ARCH LIBRARY, $(@F))
-	$(MAKE) -C $(@D)
+	$(MAKE) -B -C $(@D)
 
 clean:
 	$(foreach path,$(LIBPATH),$(MAKE) clean -C $(path);)

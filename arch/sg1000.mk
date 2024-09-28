@@ -1,37 +1,10 @@
-DIRSRC ?= src
-DIRBASE?= base
-DIROBJ := obj
+SYS_DEFINE := _SG1000
+ARCH  := z80
 
-SRC    := $(wildcard $(DIRSRC)/*.c)
-CRTSRC := $(wildcard $(DIRSRC)/*.s)
+BASELIBPATH := ../../arch/
+BASELIBARCH := sg1000
+BASELIBNAME := $(BASELIBPATH)$(BASELIBARCH)/base.lib
 
-CC     := sdcc
-CFLAGS := $(if $(CFLAGS),$(CFLAGS) -I. -I../,-c --std-c99 -mz80 --nostdinc --no-std-crt0 --nostdlib -I. -I../)
-AR     := sdar
-ARFLAGS:= -rc
-ASSM   := sdasz80
-AFLAGS := -xlos -g
-
-CRTREL := $(addprefix $(DIROBJ)/, $(notdir $(CRTSRC:.s=.rel)))
-SRCREL := $(addprefix $(DIROBJ)/, $(notdir $(SRC:.c=.rel)))
-
-LIB    := $(notdir $(SRC:.c=.lib))
-
-.PHONY: clean all
-
-ALL: $(CRTREL) $(LIB)
-
-$(LIB): $(SRCREL)
-	$(AR) $(ARFLAGS) $@ $^
-
-$(SRCREL): $(SRC)
-	$(CC) -o $@ $(CFLAGS) $<
-
-$(CRTREL): $(CRTSRC) | $(DIROBJ)
-	$(ASSM) $(AFLAGS) $@ $<
-
-$(DIROBJ):
-	mkdir -p $@
-
-clean:
-	rm -rf $(LIB) $(DIROBJ)
+CODELOC   := 0x0100
+DATALOC   := 0xC000
+IRAMSIZE  := 1024

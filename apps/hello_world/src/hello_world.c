@@ -4,9 +4,16 @@
 //******************************************************************************
 
 #include <base.h>
-#include <sn76489.h>
 #include <tms99XX.h>
 #include <tms99XXascii.h>
+
+#if defined(_COLECO_SGM) || defined(_MSX)
+#include <gisnd.h>
+#endif
+
+#ifndef _MSX
+#include <sn76489.h>
+#endif
 
 #if defined(_COLECO) || defined(_COLECO_SGM)
   __at 0x8024 const char game_info[] = "HELLO WORLD!\x1E\x1F/JAY CONVERTINO/2024";
@@ -23,7 +30,7 @@ void main(void)
 
   const char helloWorld[] = "Hello World!!!";
 
-  const char tag[] = "2022 Jay Convertino";
+  const char tag[] = "2024 Jay Convertino";
 
   const char txtmode[] = "TXT";
 
@@ -77,9 +84,17 @@ void main(void)
   /* enable screen */
   setTMS99XXblank(&tms99XX, 0);
 
+#if defined(_COLECO_SGM) || defined(_MSX)
+  setGISNDchannel_freq('A', 256);
+
+  setGISNDmixer(~0, 0xFE);
+
+  setGISNDchannel_attn('A', 15, 0);
+#else
   setSN76489voice_attn(1, 2);
   /* set frequency to 440 hz */
   setSN76489voice_freq(1, 254);
+#endif
 
   for(;;)
   {

@@ -1,41 +1,29 @@
-PROJ_NAME = gisnd.a
-SRCDIR = src
-SOURCE = $(wildcard $(SRCDIR)/*.c)
-HEADER = $(notdir $(SOURCE:.c=.h))
-OBJDIR = obj
-OBJECTS = $(addprefix $(OBJDIR)/, $(notdir $(SOURCE:.c=.p1)))
-OUT = $(PROJ_NAME)
-TESTDIR = test
-TESTSRC = $(wildcard $(TESTDIR)/*.c)
-TESTOUT = $(TESTDIR)/out/
-TEST = $(addsuffix .hex, $(addprefix $(TESTOUT), $(basename $(notdir $(TESTSRC)))))
-DOXYGEN_GEN = doxygen
-DOXYGEN_CFG = dox.cfg
-MCPU = 18F45K50
+DIRSRC ?= src
+DIROBJ := obj
 
-CC = xc8-cc
-AR = xc8-ar
-CFLAGS = -I. -O2 -ansi -xassembler-with-cpp -Wa,-a -mcpu=$(MCPU)
-LFLAGS = -Wl,--data-init -mno-keep-startup -mno-osccal -mno-resetbits -mno-save-resetbits -mno-download -fno-short-double -fno-short-float -ginhx032 -I. -l$(OUT) -msummary=-psect,-class,+mem,-hex,-file
-ARFLAGS = -r
+SRC    := $(wildcard $(DIRSRC)/*.c)
 
-.PHONY: clean dox_gen
+CC     := sdcc
+CFLAGS := $(if $(CFLAGS),$(CFLAGS) -I. -I$(BASELIBPATH) -I$(BASELIBPATH)$(BASELIBARCH),)
+AR     := sdar
+ARFLAGS:= -rc
 
-all: $(OUT) $(TEST) dox_gen
+SRCREL := $(addprefix $(DIROBJ)/, $(notdir $(SRC:.c=.rel)))
 
-$(TEST): $(TESTSRC) $(OUT)
-	mkdir -p $(TESTOUT)
-	$(CC) $(CFLAGS) $< -o $@ $(LFLAGS)
+LIB    := $(notdir $(SRC:.c=.lib))
 
-$(OUT): $(OBJECTS)
-	$(AR) $(ARFLAGS) $@ $<
+.PHONY: clean all
 
-$(OBJDIR)/%.p1: $(SRCDIR)/%.c
-	mkdir -p $(OBJDIR)
-	$(CC) $(CFLAGS) -c $< -o $@
-	
-dox_gen: 
-	$(DOXYGEN_GEN) $(DOXYGEN_CFG) $(HEADER)
+ALL: $(LIB)
+
+$(LIB): $(SRCREL)
+	$(AR) $(ARFLAGS) $@ $^
+
+$(SRCREL): $(SRC) | $(DIROBJ)
+	$(CC) -o $@ $(CFLAGS) $<
+
+$(DIROBJ):
+	mkdir -p $@
 
 clean:
-	rm -rf $(OUT) $(OBJDIR) $(TESTOUT) $(DOXYGEN_GEN)
+	rm -rf $(LIB) $(DIROBJ)

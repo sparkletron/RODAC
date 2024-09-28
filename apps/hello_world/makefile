@@ -5,25 +5,42 @@ DIROBJ 	:= obj
 SRC	:= $(wildcard $(DIRSRC)/*.c)
 BIN	:= $(notdir $(SRC:.c=.bin))
 
+LIBPATH	:= ../../drivers/tms99XX
+
 ifeq (coleco,$(MAKECMDGOALS))
 include ../../arch/coleco.mk
+LIBPATH += ../../drivers/sn76489
 BIN    := $(addprefix $(MAKECMDGOALS)_, $(BIN))
 DIROBJ := $(addprefix $(MAKECMDGOALS)_, $(DIROBJ))
 endif
 
 ifeq (coleco_sgm,$(MAKECMDGOALS))
 include ../../arch/coleco_sgm.mk
+LIBPATH += ../../drivers/gisnd
+LIBPATH += ../../drivers/sn76489
 BIN    := $(addprefix $(MAKECMDGOALS)_, $(BIN))
 DIROBJ := $(addprefix $(MAKECMDGOALS)_, $(DIROBJ))
 endif
 
-# setup a way of changin architecures, maybe different makefiles that creates a default lflags for different code-loc and such.
-CRT	:= $(BASELIBPATH)$(BASELIBARCH)/obj/crt0.rel
+ifeq (msx,$(MAKECMDGOALS))
+include ../../arch/msx.mk
+LIBPATH += ../../drivers/gisnd
+BIN    := $(addprefix $(MAKECMDGOALS)_, $(BIN))
+DIROBJ := $(addprefix $(MAKECMDGOALS)_, $(DIROBJ))
+endif
 
-LIBPATH	:= ../../drivers/tms99XX ../../drivers/sn76489
+ifeq (clean,$(MAKECMDGOALS))
+include ../../arch/msx.mk
+LIBPATH += ../../drivers/gisnd
+LIBPATH += ../../drivers/sn76489
+endif
+
 ifdef LIBPATH
 LIBNAME	:= $(join $(addsuffix /,$(LIBPATH)),$(addsuffix .lib,$(notdir $(LIBPATH))))
 endif
+
+# setup a way of changin architecures, maybe different makefiles that creates a default lflags for different code-loc and such.
+CRT	:= $(BASELIBPATH)$(BASELIBARCH)/obj/crt0.rel
 
 CC     := sdcc
 LFLAGS := -m$(ARCH) -Wl -y --code-loc $(CODELOC) --data-loc $(DATALOC) --std-c99 --no-std-crt0 --iram-size $(IRAMSIZE) $(addprefix -L,$(LIBPATH)) $(addprefix -L,$(BASELIBPATH)$(BASELIBARCH)) $(CRT) $(notdir $(LIBNAME)) $(notdir $(BASELIBNAME))
@@ -43,7 +60,7 @@ export CFLAGS
 SRCREL := $(addprefix $(DIROBJ)/, $(notdir $(SRC:.c=.rel)))
 SRCIHX := $(addprefix $(DIROBJ)/, $(notdir $(SRC:.c=.ihx)))
 
-.PHONY: clean coleco all $(LIBNAME) $(BASELIBNAME)
+.PHONY: clean all $(LIBNAME) $(BASELIBNAME)
 
 all:
 	$(error ALL TARGET BUILDS NOTHING, SELECT A SYSTEM AS A TARGET)
@@ -51,6 +68,8 @@ all:
 coleco: $(BIN)
 
 coleco_sgm: $(BIN)
+
+msx: $(BIN)
 
 $(BIN): $(SRCIHX)
 	$(OBJDMP) -I ihex -O binary $< $@
@@ -73,5 +92,5 @@ $(BASELIBNAME) :
 	$(MAKE) -C $(@D)
 
 clean:
-	$(foreach path,$(LIBPATH),$(MAKE) clean -C $(path))
+	$(foreach path,$(LIBPATH),$(MAKE) clean -C $(path);)
 	rm -rf $(addprefix *_,$(BIN)) $(addprefix *_,$(DIROBJ))

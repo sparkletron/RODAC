@@ -66,7 +66,7 @@ _init:
   ld hl, #_irq_spin
   ld de, #0x0038
   ldir
-  ld	sp, #0x7400 ;; taken from libcv/src/crt0.s
+  ld	sp, #0x8000
   call gsinit
   call  _main
   rst   0x0

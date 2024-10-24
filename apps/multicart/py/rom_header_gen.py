@@ -3,7 +3,7 @@
 # @file   rom_header_gen.py
 # @author Jay Convertino(jayconvertino@outlook.com)
 # @date   2024.10.22
-# @brief  Build various projects using builder object to parse and execute parts
+# @brief  Generate a header file for the multicart program from ROMS in a directory.
 #
 # @license MIT
 # Copyright 2024 Jay Convertino
@@ -36,13 +36,13 @@ def main():
 
   rom_file = None
 
-  p = re.compile(r'^([^=]*)( = )(.*)')
+  regex_const_char = re.compile(r'^([^=]*)( = )(.*)')
 
   dir_list_all = os.listdir(args.roms_path)
 
   dir_list_all.sort()
 
-  dir_list_filtered = [os.path.splitext(item)[0] for item in dir_list_all if item.endswith(".col")]
+  dir_list_filtered = [os.path.splitext(item)[0].ljust(39)[:39] for item in dir_list_all if item.endswith(".col")]
 
   if len(dir_list_filtered) > args.max_roms:
     del dir_list_filtered[args.max_roms:]
@@ -60,7 +60,7 @@ def main():
     print(str(e))
 
   for i, line in enumerate(lines):
-    temp_list = p.findall(line)
+    temp_list = regex_const_char.findall(line)
     if temp_list:
       strip_list = list(temp_list[0])
       strip_list[2] = dir_string

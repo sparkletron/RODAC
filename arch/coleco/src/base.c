@@ -46,3 +46,19 @@ void set_spin_irq_callback(void (*callback)(void))
 
   ei();
 }
+
+// read controller one port.
+uint8_t getControllerOne()
+{
+  CTRL_STR_RST_PORT = 1;
+
+  return CTRL_ONE_PORT;
+}
+
+// read controller two port.
+uint8_t getControllerTwo()
+{
+  CTRL_STR_RST_PORT = 1;
+
+  return CTRL_TWO_PORT;
+}

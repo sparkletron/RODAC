@@ -1,117 +1,170 @@
 //**************************************************************************//**
-// @file    hello_world.c
+// @file    multicart15in1.c
 // @author  Jay Convertino
 //******************************************************************************
 
 #include <base.h>
 #include <tms99XX.h>
 #include <tms99XXascii.h>
-
-#if defined(_COLECO_SGM) || defined(_MSX)
-#include <gisnd.h>
-#endif
-
-#ifndef _MSX
-#include <sn76489.h>
-#endif
+#include <roms.h>
 
 #if defined(_COLECO) || defined(_COLECO_SGM)
-  __at 0x8024 const char game_info[] = "HELLO WORLD!\x1E\x1F/JAY CONVERTINO/2024";
+  __at 0x8024 const char game_info[] = "JAY CONVERTINO/15-IN-1 MULTICART/2024";
 #endif
 
 void main(void)
 {
-  int index = 0;
+  uint8_t index = 0;
+  uint8_t prev_index = 0;
+
+  uint8_t buffer = ~0;
+
+  uint8_t counter = 0;
 
   /* contains ti chip object */
   struct s_tms99XX tms99XX;
 
-  uint8_t scrollArray[40] = {0};
+  const char title[] = "       PRESS FIRE TO SELECT A ROM";
 
-  const char helloWorld[] = "Hello World!!!";
+  const char tag[] = "2024 Jay Convertino    15-IN-1 MULTICART";
 
-  const char tag[] = "2024 Jay Convertino";
+  const char line[] = "========================================";
 
-  const char txtmode[] = "TXT";
+  const char loading[] = " L O A D I N G  S E L E C T E D  R O M";
 
-  /* create struct to store ascii name table in order, removing first 32 null patterns */
-  uint8_t nameTable[1 + (sizeof(c_tms99XX_ascii)/8) - 32] = {0};
-
-  /* create nametable to display all ascii characters */
-  for(index = 0; index < sizeof(nameTable); index++)
-  {
-    /** offset to skip first 32 nulls **/
-    nameTable[index] = (unsigned char)index + 32;
-  }
+  volatile uint8_t *bank_switch = (uint8_t *)0xE001;
 
   /* setup tms9928 chip and finish setting up struct */
   initTMS99XX(&tms99XX, TXT_MODE, TMS_BLACK);
 
-  /* clear all ti vdp memory */
-  clearTMS99XXvramData(&tms99XX);
-
   setTMS99XXtxtColor(&tms99XX, TMS_WHITE);
-
-  // setTMS99XXblank(&tms99XX, 1);
 
   /* ascii chars */
   setTMS99XXvramWriteAddr(&tms99XX, PATTERN_TABLE_ADDR);
 
   setTMS99XXvramData(&tms99XX, c_tms99XX_ascii, sizeof(c_tms99XX_ascii));
 
+  /* invert ascii chars */
+  for(int inv_index = 0; inv_index < sizeof(c_tms99XX_ascii); inv_index++)
+  {
+    /**** write data to port from array of data at index ****/
+    VDP_DATA_PORT = ~(((uint8_t *)c_tms99XX_ascii)[inv_index]);
+  }
+
   /* first ascii letter is space in this table, no image */
   setTMS99XXvramWriteAddr(&tms99XX, NAME_TABLE_ADDR);
 
   setTMS99XXvramConstData(&tms99XX, 0, 0x7FF);
 
-  /* write all ascii text */
-  setTMS99XXvramWriteAddr(&tms99XX, NAME_TABLE_ADDR);
+  /* write title on line 0 */
+  setTMS99XXvramWriteAddr(&tms99XX, NAME_TABLE_ADDR + (40 * 0));
 
-  setTMS99XXvramData(&tms99XX, nameTable, sizeof(nameTable));
+  setTMS99XXvramData(&tms99XX, title, sizeof(title));
 
-  /* write hello world on line 12 */
-  setTMS99XXvramWriteAddr(&tms99XX, NAME_TABLE_ADDR + (40 * 11));
+  /* write a line on line 1 */
+  setTMS99XXvramWriteAddr(&tms99XX, NAME_TABLE_ADDR + (40 * 1));
 
-  setTMS99XXvramData(&tms99XX, helloWorld, sizeof(helloWorld));
+  setTMS99XXvramData(&tms99XX, line, sizeof(line));
 
-  /* write 2022 Jay Convertino on last line (24 (23, offset 0)) */
+  /* write 20XX Jay Convertino on last line (24 (23, offset 0)) */
   setTMS99XXvramWriteAddr(&tms99XX, NAME_TABLE_ADDR + (40 * 23));
 
   setTMS99XXvramData(&tms99XX, tag, sizeof(tag));
 
-  setTMS99XXvramData(&tms99XX, txtmode, sizeof(txtmode));
+  /* populate game names as a list on screen, highlight first game */
+  for(int rom_index = 0; rom_index < 15; rom_index++)
+  {
+    setTMS99XXvramWriteAddr(&tms99XX, NAME_TABLE_ADDR + (40 * (rom_index+2)));
+
+    if(rom_index == 0)
+    {
+      for(int string_index = 0; string_index < sizeof(roms[rom_index]); string_index++)
+      {
+        /**** write data to port from array of data at index ****/
+        VDP_DATA_PORT = roms[rom_index][string_index] + 0x80;
+      }
+    }
+    else
+    {
+      setTMS99XXvramData(&tms99XX, roms[rom_index], sizeof(roms[rom_index]));
+    }
+  }
 
   /* enable screen */
   setTMS99XXblank(&tms99XX, 0);
 
-#if defined(_COLECO_SGM) || defined(_MSX)
-  setGISNDchannel_freq('A', 256);
-
-  setGISNDmixer(~0, 0xFE);
-
-  setGISNDchannel_attn('A', 15, 0);
-#else
-  setSN76489voice_attn(1, 2);
-  /* set frequency to 440 hz */
-  setSN76489voice_freq(1, 254);
-#endif
-
   for(;;)
   {
-     /* read name table */
-    setTMS99XXvramReadAddr(&tms99XX, NAME_TABLE_ADDR + (40 * 11));
+    /* get controller one input */
+    uint8_t controller = getControllerOne();
 
-    getTMS99XXvramData(&tms99XX, scrollArray, sizeof(scrollArray));
+    /* when fire is pressed, start selected game */
+    if(!((controller >> FIRE_BIT) & 0x01))
+    {
+      setTMS99XXvramWriteAddr(&tms99XX, NAME_TABLE_ADDR + (40 * 0));
+      setTMS99XXvramData(&tms99XX, loading, sizeof(loading));
+      //do read at E001 + index
+      buffer = *(bank_switch + index);
+      return;
+    }
+    /* when up is pressed, and its 0 shift a buffer till its 0, then decrement index to move the highlight up the screen */
+    else if(!((controller >> UP_BIT) & 0x01))
+    {
+      buffer = buffer << 1;
 
-    /* shift all data from name table */
-    /* write to name tabble */
-    setTMS99XXvramWriteAddr(&tms99XX, NAME_TABLE_ADDR + (40 * 11));
+      if(!buffer)
+      {
+        index = (index > 0 ? (index - 1) : 14);
 
-    setTMS99XXvramData(&tms99XX, &scrollArray[1], sizeof(scrollArray)-1);
+        buffer = ~0;
+      }
+    }
+    /* when down is pressed, and its 0 shift a buffer till its 0, then increment index to move the highlight down the screen */
+    else if(!((controller >> DOWN_BIT) & 0x01))
+    {
+      buffer = buffer << 1;
 
-    setTMS99XXvramData(&tms99XX, &scrollArray[0], 1);
+      if(!buffer)
+      {
+        index = (index < 14 ? (index + 1) : 0);
 
-    __delay_us(32000);
+        buffer = ~0;
+      }
+    }
+    /* nothing? then do a count to allow quick presses to shift the buffer, and if its been to long, clear everything out */
+    else
+    {
+      counter += 1;
+
+      if(counter > 32)
+      {
+        counter = 0;
+        buffer = ~0;
+      }
+    }
+
+    /* a button has been pressed and passed indexs are no longer equal so we update the screen */
+    if(index != prev_index)
+    {
+      setTMS99XXvramWriteAddr(&tms99XX, NAME_TABLE_ADDR + (40 * (prev_index+2)));
+
+      /* write the previous string that was inverted, as a normal string */
+      setTMS99XXvramData(&tms99XX, roms[prev_index], sizeof(roms[prev_index]));
+
+
+      setTMS99XXvramWriteAddr(&tms99XX, NAME_TABLE_ADDR + (40 * (index+2)));
+
+      /* use the new index to write the inverted version of the string */
+      for(int string_index = 0; string_index < sizeof(roms[index]); string_index++)
+      {
+        /**** write data to port from array of data at index ****/
+        VDP_DATA_PORT = roms[index][string_index] + 0x80;
+      }
+
+      prev_index = index;
+    }
+
+    __delay_us(750);
   }
 }
 

@@ -7,6 +7,10 @@ BIN	:= $(notdir $(SRC:.c=.bin))
 
 LIBPATH	:= ../../drivers/tms99XX
 
+ROM_GEN := ./py/rom_header_gen.py
+ROM_DIR := ./roms
+ROM_H   := $(ROM_DIR)/roms.h
+
 ifeq (coleco,$(MAKECMDGOALS))
 include ../../arch/coleco.mk
 LIBPATH += ../../drivers/sn76489
@@ -51,7 +55,7 @@ CRT	:= $(BASELIBPATH)$(BASELIBARCH)/obj/crt0.rel
 
 CC     := sdcc
 LFLAGS := -m$(ARCH) -Wl -y --code-loc $(CODELOC) --data-loc $(DATALOC) --std-c99 --no-std-crt0 --iram-size $(IRAMSIZE) $(addprefix -L,$(LIBPATH)) $(addprefix -L,$(BASELIBPATH)$(BASELIBARCH)) $(CRT) $(notdir $(LIBNAME)) $(notdir $(BASELIBNAME))
-CFLAGS := -c --std-c99 -m$(ARCH) --no-std-crt0 -D$(SYS_DEFINE)
+CFLAGS := -c --std-c99 -m$(ARCH) --no-std-crt0 -D$(SYS_DEFINE) -I$(ROM_DIR)
 OBJDMP := sdobjcopy
 
 ifneq ($(LIBPATH),)
@@ -67,7 +71,7 @@ export CFLAGS
 SRCREL := $(addprefix $(DIROBJ)/, $(notdir $(SRC:.c=.rel)))
 SRCIHX := $(addprefix $(DIROBJ)/, $(notdir $(SRC:.c=.ihx)))
 
-.PHONY: clean all $(LIBNAME) $(BASELIBNAME)
+.PHONY: clean all $(LIBNAME) $(BASELIBNAME) $(ROM_H)
 
 all:
 	$(error ALL TARGET BUILDS NOTHING, SELECT A SYSTEM AS A TARGET)
@@ -86,11 +90,14 @@ $(BIN): $(SRCIHX)
 $(SRCIHX): $(SRCREL) $(BASELIBNAME) $(LIBNAME)
 	$(CC) -o $@ $(LFLAGS) $<
 
-$(SRCREL): $(SRC) | $(DIROBJ)
+$(SRCREL): $(SRC) $(ROM_H) | $(DIROBJ)
 	$(CC) -o $@ $(CFLAGS) $<
 
 $(DIROBJ):
 	mkdir -p $@
+
+$(ROM_H):
+	python3 $(ROM_GEN) --rom_header=$(ROM_H) --roms_path=$(ROM_DIR)
 
 $(LIBNAME) :
 	$(info BUILDING LIBRARY, $(@F))

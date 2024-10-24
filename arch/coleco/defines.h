@@ -6,6 +6,14 @@
 #ifndef __DEFINES
 #define __DEFINES
 
+#define UP_BIT       0
+#define LEFT_BIT     3
+#define DOWN_BIT     2
+#define RIGHT_BIT    1
+#define FIRE_BIT     6
+#define ARM_BIT      6
+#define KEYPAD_MASK  0x0F
+
 #define VDP_DATA_ADDR     0xBE
 #define VDP_REG_ADDR      0xBF
 #define SN_SND_ADDR       0xFF

@@ -45,8 +45,11 @@ def main():
   dir_list_filtered = [os.path.splitext(item)[0] for item in dir_list_all if item.endswith(".col")]
 
   if len(dir_list_filtered) > args.max_roms:
-    del dir_list_filtered[args.max_roms]
+    del dir_list_filtered[args.max_roms:]
     print("MAX NUMBER OF ROMS EXCEDED")
+
+  if len(dir_list_filtered) < args.max_roms:
+    print("NUMBER OF ROMS LESS THAN MAX")
 
   dir_string = "{\"" + '", "'.join(dir_list_filtered) + "\"};\n"
 

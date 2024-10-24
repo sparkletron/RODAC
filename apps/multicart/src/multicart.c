@@ -1,15 +1,16 @@
 //**************************************************************************//**
-// @file    multicart15in1.c
+// @file    multicart.c
 // @author  Jay Convertino
 //******************************************************************************
 
 #include <base.h>
 #include <tms99XX.h>
 #include <tms99XXascii.h>
+#include <stdio.h>
 #include <roms.h>
 
 #if defined(_COLECO) || defined(_COLECO_SGM)
-  __at 0x8024 const char game_info[] = "JAY CONVERTINO/15-IN-1 MULTICART/2024";
+  __at 0x8024 const char game_info[] = "JAY CONVERTINO/MULTICART/2024";
 #endif
 
 void main(void)
@@ -17,16 +18,18 @@ void main(void)
   uint8_t index = 0;
   uint8_t prev_index = 0;
 
-  uint8_t buffer = ~0;
+  uint8_t buffer = (uint8_t)~0;
 
   uint8_t counter = 0;
+
+  const uint8_t num_of_roms = sizeof(roms) / sizeof(roms[0]);
 
   /* contains ti chip object */
   struct s_tms99XX tms99XX;
 
   const char title[] = "       PRESS FIRE TO SELECT A ROM";
 
-  const char tag[] = "2024 Jay Convertino    15-IN-1 MULTICART";
+  const char tag[] = "2024 Jay Convertino            MULTICART";
 
   const char line[] = "========================================";
 
@@ -72,7 +75,7 @@ void main(void)
   setTMS99XXvramData(&tms99XX, tag, sizeof(tag));
 
   /* populate game names as a list on screen, highlight first game */
-  for(int rom_index = 0; rom_index < 15; rom_index++)
+  for(int rom_index = 0; rom_index < num_of_roms; rom_index++)
   {
     setTMS99XXvramWriteAddr(&tms99XX, NAME_TABLE_ADDR + (40 * (rom_index+2)));
 
@@ -114,9 +117,9 @@ void main(void)
 
       if(!buffer)
       {
-        index = (index > 0 ? (index - 1) : 14);
+        index = (index > 0 ? (index - 1) : num_of_roms-1);
 
-        buffer = ~0;
+        buffer = (uint8_t)~0;
       }
     }
     /* when down is pressed, and its 0 shift a buffer till its 0, then increment index to move the highlight down the screen */
@@ -126,9 +129,9 @@ void main(void)
 
       if(!buffer)
       {
-        index = (index < 14 ? (index + 1) : 0);
+        index = (index < num_of_roms-1 ? (index + 1) : 0);
 
-        buffer = ~0;
+        buffer = (uint8_t)~0;
       }
     }
     /* nothing? then do a count to allow quick presses to shift the buffer, and if its been to long, clear everything out */
@@ -139,7 +142,7 @@ void main(void)
       if(counter > 32)
       {
         counter = 0;
-        buffer = ~0;
+        buffer = (uint8_t)~0;
       }
     }
 

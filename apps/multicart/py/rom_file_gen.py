@@ -34,8 +34,10 @@ import os
 def main():
   args = parse_args(sys.argv[1:])
 
+  #change bank to bytes
   bank_size_bytes = args.bank_size * 1024
 
+  #change max to bytes
   max_size_bytes = args.max_size * 1024
 
   rom_file = None
@@ -51,8 +53,8 @@ def main():
   #sort alphabetically
   dir_list_all.sort()
 
-  #filter out anything that doesn't end in .col'
-  dir_list_filtered = [item for item in dir_list_all if item.endswith(".col")]
+  #filter out anything that doesn't end in the specified extension'
+  dir_list_filtered = [item for item in dir_list_all if item.endswith(f".{args.roms_ext}")]
 
   #check the number of roms found
   if len(dir_list_filtered) > max_roms:
@@ -62,6 +64,7 @@ def main():
   if len(dir_list_filtered) < max_roms:
     print("NUMBER OF ROMS LESS THAN MAX")
 
+  #open rom file for binary writing.
   try:
     rom_file = open(args.rom_name, 'wb')
   except FileNotFoundError as e:
@@ -96,10 +99,11 @@ def parse_args(argv):
   parser = argparse.ArgumentParser(description='Automate rom generation by finding all files with a .col extension. Then output a concatenated file with all files padded to bank size.')
 
   parser.add_argument('--bank_size',      action='store',       default=32,               dest='bank_size',    required=False, help='Bank size of multicart in Kilobytes(1024, default 32KB')
-  parser.add_argument('--roms_path',      action='store',       default="./",             dest='roms_path',    required=False, help='Path to roms to use for generation (all must be .col extension).')
+  parser.add_argument('--roms_path',      action='store',       default="./",             dest='roms_path',    required=False, help='Path to roms to use for generation (.col extension is default).')
   parser.add_argument('--rom_prime',      action='store',       default="multicart.bin",  dest='rom_prime',    required=False, help='Name of primary rom to locate at the 0th bank')
   parser.add_argument('--rom_name',       action='store',       default="output.bin",     dest='rom_name',     required=False, help='Name of output rom file, include extension you would like to use.')
   parser.add_argument('--max_size',       action='store',       default=512,              dest='max_size',     required=False, help='Max size of total output rom file in Kilobytes(1024, default 512KB).')
+  parser.add_argument('--roms_ext',       action='store',       default="col",            dest='roms_ext',     required=False, help='Extension for roms, .col is default. Do not include period.')
 
   return parser.parse_args()
 

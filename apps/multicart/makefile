@@ -7,9 +7,10 @@ BIN	:= $(notdir $(SRC:.c=.bin))
 
 LIBPATH	:= ../../drivers/tms99XX
 
-ROM_GEN := ./py/rom_header_gen.py
-ROM_DIR := ./roms
-ROM_H   := $(ROM_DIR)/roms.h
+ROM_H_GEN	:= ./py/rom_header_gen.py
+ROM_DIR 	:= ./roms
+ROM_H   	:= $(ROM_DIR)/roms.h
+ROM_F_GEN	:= ./py/rom_file_gen.py
 
 ifeq (coleco,$(MAKECMDGOALS))
 include ../../arch/coleco.mk
@@ -39,6 +40,8 @@ LIBPATH += ../../drivers/sn76489
 BIN    := $(addprefix $(MAKECMDGOALS)_, $(BIN))
 DIROBJ := $(addprefix $(MAKECMDGOALS)_, $(DIROBJ))
 endif
+
+ROM_OUT		:= $(addprefix complete_, $(BIN))
 
 ifeq (clean,$(MAKECMDGOALS))
 include ../../arch/msx.mk
@@ -71,12 +74,12 @@ export CFLAGS
 SRCREL := $(addprefix $(DIROBJ)/, $(notdir $(SRC:.c=.rel)))
 SRCIHX := $(addprefix $(DIROBJ)/, $(notdir $(SRC:.c=.ihx)))
 
-.PHONY: clean all $(LIBNAME) $(BASELIBNAME) $(ROM_H)
+.PHONY: clean all $(LIBNAME) $(BASELIBNAME) $(ROM_H) $(ROM_OUT)
 
 all:
 	$(error ALL TARGET BUILDS NOTHING, SELECT A SYSTEM AS A TARGET)
 
-coleco: $(BIN)
+coleco: $(BIN) $(ROM_OUT)
 
 coleco_sgm: $(BIN)
 
@@ -96,8 +99,11 @@ $(SRCREL): $(SRC) $(ROM_H) | $(DIROBJ)
 $(DIROBJ):
 	mkdir -p $@
 
+$(ROM_OUT):
+	python3 $(ROM_F_GEN) --rom_prime=$(BIN) --roms_path=$(ROM_DIR) --rom_name=$@
+
 $(ROM_H):
-	python3 $(ROM_GEN) --rom_header=$(ROM_H) --roms_path=$(ROM_DIR)
+	python3 $(ROM_H_GEN) --rom_header=$@ --roms_path=$(ROM_DIR)
 
 $(LIBNAME) :
 	$(info BUILDING LIBRARY, $(@F))
@@ -109,4 +115,4 @@ $(BASELIBNAME) :
 
 clean:
 	$(foreach path,$(LIBPATH),$(MAKE) clean -C $(path);)
-	rm -rf $(addprefix *_,$(BIN)) $(addprefix *_,$(DIROBJ))
+	rm -rf $(addprefix *_,$(BIN)) $(addprefix *_,$(DIROBJ)) $(ROM_OUT)

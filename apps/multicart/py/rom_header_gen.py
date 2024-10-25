@@ -34,8 +34,6 @@ import os
 def main():
   args = parse_args(sys.argv[1:])
 
-  rom_file = None
-
   regex_const_char = re.compile(r'^([^=]*)( = )(.*)')
 
   dir_list_all = os.listdir(args.roms_path)

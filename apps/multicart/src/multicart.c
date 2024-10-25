@@ -10,7 +10,7 @@
 #include <roms.h>
 
 #if defined(_COLECO) || defined(_COLECO_SGM)
-  __at 0x8024 const char game_info[] = "JAY CONVERTINO/MULTICART/2024";
+  __at 0x8024 const char game_info[] = "MULTICART BY JAY CONVERTINO/ /2024";
 #endif
 
 void main(void)
@@ -18,7 +18,7 @@ void main(void)
   uint8_t index = 0;
   uint8_t prev_index = 0;
 
-  uint8_t buffer = (uint8_t)~0;
+  volatile uint8_t buffer = (uint8_t)~0;
 
   uint8_t counter = 0;
 
@@ -33,7 +33,7 @@ void main(void)
 
   const char line[] = "========================================";
 
-  const char loading[] = " L O A D I N G  S E L E C T E D  R O M";
+  const char loading[] = "  R E S E T  T O  S T A R T  G A M E  ";
 
   volatile uint8_t *bank_switch = (uint8_t *)0xE001;
 
@@ -107,8 +107,18 @@ void main(void)
       setTMS99XXvramWriteAddr(&tms99XX, NAME_TABLE_ADDR + (40 * 0));
       setTMS99XXvramData(&tms99XX, loading, sizeof(loading));
       //do read at E001 + index
+      //I do this 4 times do to the pic i use having a 200 ns instruction time
+      //problem is the select is only 620ns on the coleco, which for all the
+      //instructions I needed takes 1000ns to complete and read again.
+      //this means a pulse could be missed if a sample is taken just before.
+      //Doing this 4 times solves this issue.
       buffer = *(bank_switch + index);
-      return;
+      buffer = *(bank_switch + index);
+      buffer = *(bank_switch + index);
+      buffer = *(bank_switch + index);
+      //It seems that Atari games do not like the reset. So halt and let the user
+      //do it. User is slow enough to sync the systems without issue.
+      __asm__("halt");
     }
     /* when up is pressed, and its 0 shift a buffer till its 0, then decrement index to move the highlight up the screen */
     else if(!((controller >> UP_BIT) & 0x01))

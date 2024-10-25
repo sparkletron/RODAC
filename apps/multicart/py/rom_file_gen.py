@@ -71,7 +71,7 @@ def main():
   #open rom prime, read full amount to buffer, determine and check size, and then add padding to buffer
   rom_buffer += read_file_and_pad(args.rom_prime, bank_size_bytes)
 
-  #open each rom file, read full amount to buffer, determine and size, and then add padding to buffer. f"{args.roms_path}/file_name"
+  #open each rom file, read full amount to buffer, determine and size, and then add padding to buffer. f"{args.roms_path}/{file_name}"
   for file_name in dir_list_filtered:
     rom_buffer += read_file_and_pad(f"{args.roms_path}/{file_name}", bank_size_bytes)
 
@@ -79,26 +79,6 @@ def main():
   rom_file.write(rom_buffer)
 
   rom_file.close()
-
-
-  # try:
-  #   with open(args.rom_header, 'r') as file:
-  #     lines = file.readlines()
-  # except FileNotFoundError as e:
-  #   print(str(e))
-  #
-  # for i, line in enumerate(lines):
-  #   temp_list = p.findall(line)
-  #   if temp_list:
-  #     strip_list = list(temp_list[0])
-  #     strip_list[2] = dir_string
-  #     lines[i] = ''.join(strip_list)
-  #
-  # try:
-  #   with open(args.rom_header, 'w') as file:
-  #     file.writelines(lines)
-  # except FileNotFoundError as e:
-  #   print(str(e))
 
   exit(0)
 

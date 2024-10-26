@@ -59,7 +59,7 @@ CRT	:= $(BASELIBPATH)$(BASELIBARCH)/obj/crt0.rel
 
 CC     := sdcc
 LFLAGS := -m$(ARCH) -Wl -y --code-loc $(CODELOC) --data-loc $(DATALOC) --std-c99 --no-std-crt0 --iram-size $(IRAMSIZE) $(addprefix -L,$(LIBPATH)) $(addprefix -L,$(BASELIBPATH)$(BASELIBARCH)) $(CRT) $(notdir $(LIBNAME)) $(notdir $(BASELIBNAME))
-CFLAGS := -c --std-c99 -m$(ARCH) --no-std-crt0 -D$(SYS_DEFINE) -I$(ROM_DIR)
+CFLAGS := -c --std-c99 -m$(ARCH) --no-std-crt0 -D$(SYS_DEFINE) -I$(ROM_H_DIR)
 OBJDMP := sdobjcopy
 
 ifneq ($(LIBPATH),)

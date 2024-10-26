@@ -9,7 +9,8 @@ LIBPATH	:= ../../drivers/tms99XX
 
 ROM_H_GEN	:= ./py/rom_header_gen.py
 ROM_DIR 	:= ./roms
-ROM_H   	:= $(ROM_DIR)/roms.h
+ROM_H_DIR	:= ./roms
+ROM_H   	:= $(ROM_H_DIR)/roms.h
 ROM_F_GEN	:= ./py/rom_file_gen.py
 
 ifeq (coleco,$(MAKECMDGOALS))

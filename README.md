@@ -1,4 +1,5 @@
 # RODAC, Retro Only Device Application Creation.
+![image](docs/manual/src/img/SPARKLETRON.png)
 
 author: Jay Convertino
 

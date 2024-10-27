@@ -46,9 +46,9 @@ license: MIT
   - make
 
 ## Documentation
-  - docs/manual/RODAC.pdf
-  - Github Project wiki
-  - https://sparkletron.github.io/RODAC/
+  - [RODAC.pdf](docs/manual/RODAC.pdf)
+  - [RODAC wiki](https://github.com/sparkletron/RODAC/wiki)
+  - [RODAC Github IO](https://sparkletron.github.io/RODAC/)
 
 ## Example
 

@@ -29,6 +29,10 @@ license: MIT
   - MSX (original)
   - SG1000
 
+## Applications
+  - hello_world
+  - multicart
+
 ## Release Versions
 ### Current
   - pre-aplha
@@ -41,8 +45,10 @@ license: MIT
   - python 3.X
   - make
 
-## Building (COMING SOON)
-  - See docs/manual/RODAC.pdf or the wiki for instructions
+## Documentation
+  - docs/manual/RODAC.pdf
+  - Github Project wiki
+  - https://sparkletron.github.io/RODAC/
 
 ## Example
 

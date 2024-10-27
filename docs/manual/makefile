@@ -28,3 +28,5 @@ $(WIKI_DIR)/$(WIKI): $(SRC)
 
 clean:
 	rm -rf $(PDF) dox/$(notdir ${DOXYGEN}) $(WIKI_DIR)/$(WIKI) $(AUX) $(LOG) $(TOC) $(OUT) $(notdir ${DOXYGEN}).pdf
+
+# 	latex2html src/RODAC.tex -dir ../

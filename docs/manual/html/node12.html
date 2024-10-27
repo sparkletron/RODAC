@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2021.2 (Released July 1, 2021) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>General Desciption</TITLE>
+<META NAME="description" CONTENT="General Desciption">
+<META NAME="keywords" CONTENT="RODAC">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2021.2">
+
+<LINK REL="STYLESHEET" HREF="RODAC.css">
+
+<LINK REL="next" HREF="node13.html">
+<LINK REL="previous" HREF="node11.html">
+<LINK REL="next" HREF="node13.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node13.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="node11.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node11.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A ID="tex2html65"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A
+ HREF="node13.html">Excuses</A>
+<B> Up:</B> <A
+ HREF="node11.html">Architecture</A>
+<B> Previous:</B> <A
+ HREF="node11.html">Architecture</A>
+ &nbsp; <B>  <A ID="tex2html66"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00030100000000000000">
+General Desciption</A>
+</H3><SPAN CLASS="XLARGE">
+</SPAN>
+<P>
+<SPAN CLASS="XLARGE">The overall architecture is fairly simple and has the following steps.
+</SPAN>
+<P>
+<SPAN CLASS="XLARGE"></SPAN>
+<OL>
+<LI>Boot colecovision in standard banner mode. Display multicart title.
+</LI>
+<LI>Display selection screen in TMS text mode.
+</LI>
+<LI>Highlight current user selection, defaulting at the 1st entry.
+</LI>
+<LI>Once fire is pressed, the highlighted entry is selected for bank switching.
+</LI>
+<LI>Colecovision code will load a new banner telling the user to reset the console.
+</LI>
+<LI>Colecovision will spam the address E001 + entry(0 to 14) 4 times to activate PIC.
+</LI>
+<LI>When E000n enable line goes low and the PIC catches it, the PIC will then set its output address lines to the rom to the input address lines.
+</LI>
+<LI>User will reset console, console will now read the bank switched ROM from multicart.
+  
+</LI>
+</OL><SPAN CLASS="XLARGE">
+</SPAN>
+<P>
+<SPAN CLASS="XLARGE"></SPAN>
+<BR><HR>
+
+</BODY>
+</HTML>

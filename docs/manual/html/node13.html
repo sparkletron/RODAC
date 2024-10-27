@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2021.2 (Released July 1, 2021) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>Excuses</TITLE>
+<META NAME="description" CONTENT="Excuses">
+<META NAME="keywords" CONTENT="RODAC">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2021.2">
+
+<LINK REL="STYLESHEET" HREF="RODAC.css">
+
+<LINK REL="previous" HREF="node12.html">
+<LINK REL="next" HREF="node14.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node14.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="node11.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node12.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A ID="tex2html67"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A
+ HREF="node14.html">Code Highlights</A>
+<B> Up:</B> <A
+ HREF="node11.html">Architecture</A>
+<B> Previous:</B> <A
+ HREF="node12.html">General Desciption</A>
+ &nbsp; <B>  <A ID="tex2html68"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00030200000000000000">
+Excuses</A>
+</H3><SPAN CLASS="XLARGE">
+</SPAN>
+<P>
+<SPAN CLASS="XLARGE">One of the major items you may notice is the need for the user to reset the console. This is due to my design, being a pain to time correctly.
+  By making the user reset the console, which is much slower than the console, the colecovision and the PIC can be synced easily. Yes that PIC is the reason for this.
+  The PIC at 20 MHz takes 200ns to execute each instruction. Currently my algorithm (see <A HREF="#PIC_address_selection"><IMG  ALT="[*]" SRC="crossref.png"></A>) will take 1000ns to sample, test the sample and then
+  decide if E000n is active. The E000n pulse was measured to only be 620ns. Since the PIC is simply in a loop sampling, this means the pulse can be missed by the
+  microcontroller. Easy way to fix this is to spam a few reads, in this case four, from the Colecovision Multicart program.
+  </SPAN>
+<P>
+<SPAN CLASS="XLARGE">Now the PIC has to set the address. This of course is fairly quick, sometimes too quick and results in corruption. Mostly with Atari games. This resulted in the idea
+  of using a halt instead of reset. Basically the Colecovision code spams the read four times, then goes to a halt. The PIC picks up the read, captures the address and
+  then waits for 1 second. After than second it bank switches the ROM. Since the console is halted this presents no issue and the user can now reset the console to
+  start their game.
+  </SPAN>
+<P>
+<SPAN CLASS="XLARGE">Getting the timing between the two perfect could be achieved, heck others have done it. Frankly, this was the easy way out for now. Maybe in the future I'll revisit it.
+  Though the goal is small and cheap. Three IC's is fairly small for the multicart, and as it is now works perfectly for my usecase.
+</SPAN>
+<P>
+<SPAN CLASS="XLARGE">
+</SPAN>
+<P>
+<SPAN CLASS="XLARGE"></SPAN>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node14.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="node11.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node12.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A ID="tex2html67"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A
+ HREF="node14.html">Code Highlights</A>
+<B> Up:</B> <A
+ HREF="node11.html">Architecture</A>
+<B> Previous:</B> <A
+ HREF="node12.html">General Desciption</A>
+ &nbsp; <B>  <A ID="tex2html68"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

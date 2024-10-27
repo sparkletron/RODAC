@@ -7,11 +7,13 @@ TOC=$(PDF:.pdf=.toc)
 OUT=$(PDF:.pdf=.out)
 WIKI=Home.md
 WIKI_DIR=RODAC.wiki
+HTML=index.html
+HTML_DIR=html
 DOXYGEN=../../drivers/tms99XX ../../drivers/sn76489 ../../drivers/gisnd
 
-.PHONY: $(DOXYGEN) clean $(WIKI_DIR)/$(WIKI) $(PDF)
+.PHONY: $(DOXYGEN) clean $(WIKI_DIR)/$(WIKI) $(PDF) $(HTML_DIR)
 
-all: $(DOXYGEN) $(PDF) $(WIKI_DIR)/$(WIKI)
+all: $(DOXYGEN) $(PDF) $(WIKI_DIR)/$(WIKI) $(HTML_DIR)
 
 $(DOXYGEN):
 	make -C $@ dox_gen
@@ -26,7 +28,9 @@ $(PDF): $(SRC)
 $(WIKI_DIR)/$(WIKI): $(SRC)
 	pandoc -f latex -t gfm -s -o $@ $<
 
-clean:
-	rm -rf $(PDF) dox/$(notdir ${DOXYGEN}) $(WIKI_DIR)/$(WIKI) $(AUX) $(LOG) $(TOC) $(OUT) $(notdir ${DOXYGEN}).pdf
+$(HTML_DIR): $(SRC)
+	mkdir -p $(HTML_DIR)
+	latex2html $< -dir $@
 
-# 	latex2html src/RODAC.tex -dir ../
+clean:
+	rm -rf $(PDF) dox/$(notdir ${DOXYGEN}) $(WIKI_DIR)/$(WIKI) $(AUX) $(LOG) $(TOC) $(OUT) $(addsuffix .pdf, $(notdir ${DOXYGEN})) $(HTML_DIR)

@@ -1,0 +1,3 @@
+[submodule "docs/manual/RODAC.wiki"]
+	path = docs/manual/RODAC.wiki
+	url = git@github.com:sparkletron/RODAC.wiki.git

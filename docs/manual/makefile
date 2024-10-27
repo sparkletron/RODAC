@@ -5,24 +5,26 @@ AUX=$(PDF:.pdf=.aux)
 LOG=$(PDF:.pdf=.log)
 TOC=$(PDF:.pdf=.toc)
 OUT=$(PDF:.pdf=.out)
-MD=$(notdir $(SRC:.tex=.md))
 WIKI=Home.md
 WIKI_DIR=RODAC.wiki
+DOXYGEN=../../drivers/tms99XX ../../drivers/sn76489 ../../drivers/gisnd
 
-.phony: clean
+.PHONY: $(DOXYGEN) clean $(WIKI_DIR)/$(WIKI) $(PDF)
 
-all: $(PDF) $(MD) $(WIKI_DIR)/$(WIKI)
+all: $(DOXYGEN) $(PDF) $(WIKI_DIR)/$(WIKI)
+
+$(DOXYGEN):
+	make -C $@ dox_gen
+	make -C dox/$(notdir $@)/latex
+	mv dox/$(notdir $@)/latex/refman.pdf $(notdir $@).pdf
 
 $(PDF): $(SRC)
 	pdflatex -shell-escape -interaction=batchmode $<
 	pdflatex -shell-escape -interaction=batchmode $<
 	rm $(AUX) $(LOG) $(TOC) $(OUT)
 
-$(MD): $(SRC)
-	pandoc -f latex -t markdown -s -o $@ $<
-
 $(WIKI_DIR)/$(WIKI): $(SRC)
-	pandoc -f latex -t markdown -s -o $@ $<
+	pandoc -f latex -t gfm -s -o $@ $<
 
 clean:
-	rm -rf $(PDF) $(MD)
+	rm -rf $(PDF) dox/$(notdir ${DOXYGEN}) $(WIKI_DIR)/$(WIKI) $(AUX) $(LOG) $(TOC) $(OUT) $(notdir ${DOXYGEN}).pdf

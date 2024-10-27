@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>RODAC Main Page</title>
-</head>
-<body>
+  <head>
+    <script src="jquery.js"></script>
+    <script>
+    $(function(){
+      $("#includedContent").load("manual/html/index.html");
+    });
+    </script>
+  </head>
 
-<object data="manual/html/index.html">
-    Your browser doesn’t support the object tag.
-</object>
-
-</body>
+  <body>
+     <div id="includedContent"></div>
+  </body>
 </html>

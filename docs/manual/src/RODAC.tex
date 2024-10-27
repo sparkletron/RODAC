@@ -1,32 +1,23 @@
 \documentclass{article}
 \usepackage{graphicx}
-\usepackage{titling}
-\usepackage{titlesec}
-\usepackage{dirtree}
-\usepackage{indentfirst}
-\usepackage{pdfpages}
-\usepackage{import}
 \usepackage[hidelinks]{hyperref}
-\title{{\Huge Colecovision Multicart Manual}}
-\author{\Large Jay Convertino}
-\date{\today}
 \begin{document}
   \begin{titlepage}
     \begin{center}
 
-    \thetitle
+    {\Huge Colecovision Multicart Manual}
 
     \vspace{25mm}
 
-    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{src/img/SPARKLETRON.png}
+    \includegraphics[width=0.90\textwidth,height=\textheight,keepaspectratio]{src/img/SPARKLETRON.png}
 
     \vspace{25mm}
 
-    \thedate
+    \today
 
     \vspace{15mm}
 
-    \theauthor
+    {\Large Jay Convertino}
 
     \end{center}
   \end{titlepage}
@@ -77,22 +68,8 @@
 
   \subsection{Directory Guide}
 
-  \dirtree{%
-    .1 docs/.
-    .2 datasheets.
-    .2 manual.
-    .1 schematic/.
-    .2 gerber.
-    .2 step.
-    .1 src/.
-    .2 pic\_coleco\_addr\_sel.
-    .2 firmware.
-  }
-
-  \vspace{\baselineskip}
-
   \par
-  The above listing shows the important directories for this project. The list below describes each section.
+  Below highlights important folders from the root of RODAC.
 
   \begin{enumerate}
     \item \textbf{docs} Contains all documentation related to this project.

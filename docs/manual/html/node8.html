@@ -3,8 +3,8 @@
 <!--Converted with LaTeX2HTML 2021.2 (Released July 1, 2021) -->
 <HTML lang="en">
 <HEAD>
-<TITLE>PCB</TITLE>
-<META NAME="description" CONTENT="PCB">
+<TITLE>Directory Guide</TITLE>
+<META NAME="description" CONTENT="Directory Guide">
 <META NAME="keywords" CONTENT="RODAC">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -15,8 +15,7 @@
 
 <LINK REL="STYLESHEET" HREF="RODAC.css">
 
-<LINK REL="next" HREF="node9.html">
-<LINK REL="previous" HREF="node7.html">
+<LINK REL="previous" HREF="node5.html">
 <LINK REL="next" HREF="node9.html">
 </HEAD>
 
@@ -27,33 +26,72 @@
  HREF="node9.html">
 <IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
 <A
- HREF="node5.html">
+ HREF="node2.html">
 <IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
 <A
  HREF="node7.html">
 <IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
-<A ID="tex2html55"
+<A ID="tex2html57"
   HREF="node1.html">
 <IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
 <B> Next:</B> <A
- HREF="node9.html">3D printed Case</A>
+ HREF="node9.html">Application Creation</A>
 <B> Up:</B> <A
- HREF="node5.html">Building</A>
+ HREF="node2.html">Usage</A>
 <B> Previous:</B> <A
- HREF="node7.html">Microcontroller Code</A>
- &nbsp; <B>  <A ID="tex2html56"
+ HREF="node7.html">multicart</A>
+ &nbsp; <B>  <A ID="tex2html58"
   HREF="node1.html">Contents</A></B> 
 <BR>
 <BR></DIV>
 <!--End of Navigation Panel-->
 
-<H3><A ID="SECTION00023300000000000000">
-PCB</A>
-</H3>
+<H2><A ID="SECTION00024000000000000000">
+Directory Guide</A>
+</H2>
 
 <P>
-COMING SOON(TM)
+Below highlights important folders from the root of RODAC.
+
+<P>
+
+<OL>
+<LI><SPAN  CLASS="textbf">docs</SPAN> Contains all documentation related to this project.
+      
+<UL>
+<LI><SPAN  CLASS="textbf">arch</SPAN> Contains all architecture docs related to retro systems.
+</LI>
+<LI><SPAN  CLASS="textbf">manual</SPAN> Contains user manual and wiki that are generated from the same latex source.
+      
+</LI>
+</UL>
+</LI>
+<LI><SPAN  CLASS="textbf">apps</SPAN> Contains source code in C for the applications to run on the target architecture.
+      
+<UL>
+<LI><SPAN  CLASS="textbf">hello_world</SPAN> Example hello world application. Targets all architectures.
+</LI>
+<LI><SPAN  CLASS="textbf">mutlicart</SPAN> Example multicart application, written for the coleco only.
+      
+</LI>
+</UL>
+</LI>
+<LI><SPAN  CLASS="textbf">drivers</SPAN> Contains all source code related to the project.
+      
+<UL>
+<LI><SPAN  CLASS="textbf">gisnd</SPAN> Simple driver for the GI AY-3-8910 sound chip and its variants.
+</LI>
+<LI><SPAN  CLASS="textbf">sn76489</SPAN> driver for the TI SN76489 sound chip.
+</LI>
+<LI><SPAN  CLASS="textbf">tms99XX</SPAN> driver for all TMS99XX and TMS9XXX video chips.
+      
+</LI>
+</UL>
+</LI>
+</OL>
+
+<P>
 
 <P>
 <BR><HR>

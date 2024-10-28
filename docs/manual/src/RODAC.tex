@@ -36,6 +36,20 @@
   Items such as how to build included apps, what the structure of the system looks like, and how to create your
   own app is included. The final section are links to doxygen generatated documentation about the drivers used
   by this system.
+  \par
+  RODAC is a multisystem development kit that targets retro systems with a z80 CPU and TMS based video display
+  processor. Various sound and other IO perferials are supported. RODAC is made to be a easy to use by using
+  a modern directory structure and library system for the code. All code, outside of the C runtime is written
+  in C. This makes porting between systems easier and the code readable. Applications can be made to target
+  all or just a few of the systems by including only the makefiles for the target system. This is due to each
+  architecure and driver library using the same makefiles, limited alterations for architecture, and same overall
+  structure. Simply copy an existing target that is close to what you're looking for and alter it for the intended
+  use case, or write it from scratch using the same macros and defines as the other existing libraries.
+  \par
+  Overall the system makes adding new architecture targets, applications, and drivers easy. Allowing other systems
+  to be added quickly and effortlessly. Inline assembler is avoided so future iterations may support other CPU targets,
+  though this is a distant goal. RODAC is a development kit for retro systems that makes development about the
+  application, not the processes of trying to build it.
 
   \subsection{Dependecies}
 

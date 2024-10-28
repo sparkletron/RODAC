@@ -9,6 +9,8 @@
 #include <stdio.h>
 #include <roms.h>
 
+#define MAX_LINES 21
+
 #if defined(_COLECO) || defined(_COLECO_SGM)
   __at 0x8024 const char game_info[] = "MULTICART BY JAY CONVERTINO/ /2024";
 #endif
@@ -75,7 +77,7 @@ void main(void)
   setTMS99XXvramData(&tms99XX, tag, sizeof(tag));
 
   /* populate game names as a list on screen, highlight first game */
-  for(int rom_index = 0; rom_index < num_of_roms; rom_index++)
+  for(int rom_index = 0; (rom_index < num_of_roms) && (rom_index < MAX_LINES); rom_index++)
   {
     setTMS99XXvramWriteAddr(&tms99XX, NAME_TABLE_ADDR + (40 * (rom_index+2)));
 

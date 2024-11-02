@@ -4,7 +4,7 @@ Software Library for TI TMS9918,28,29 video display processors.
 
 author: Jay Convertino
 
-data: 2022.01.31
+data: 2024.11.02
 
 license: MIT
 

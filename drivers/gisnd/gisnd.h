@@ -3,8 +3,6 @@
  * @brief   Library for gisnd sound chip.
  * @author  Jay Convertino(electrobs@gmail.com)
  * @date    2024.05.27
- * @details OH SO MANY
- * @version 0.0.1
  * 
  * @license mit
  * 

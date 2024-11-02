@@ -70,15 +70,14 @@ $(function() {
 </p>
 <p>author: Jay Convertino <br  />
 </p>
-<p>data: 2022.01.31 <br  />
-</p>
+<p>data: 2024.11.02</p>
 <p>license: MIT</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
 Release Versions</h1>
 <h2><a class="anchor" id="autotoc_md2"></a>
 Current</h2>
 <ul>
-<li>release_v0.0.1</li>
+<li>pre-alpha</li>
 </ul>
 <h2><a class="anchor" id="autotoc_md3"></a>
 Past</h2>
@@ -88,71 +87,17 @@ Past</h2>
 <h1><a class="anchor" id="autotoc_md4"></a>
 Requirements</h1>
 <ul>
-<li>xc8-cc V2.32</li>
-<li>PIC18F45K50 (MCU can be changed in makefile)</li>
-<li>PICerino development board</li>
+<li>sdcc v4.0.0 or greater</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md5"></a>
 Building</h1>
-<ul>
-<li>make : builds all</li>
-<li>make dox_gen : doxygen only</li>
-<li>make test : test only</li>
-<li>make libSN76489.a : static library only</li>
-<li>make clean : remove all build outputs.</li>
-</ul>
+<p>Must be built with the arch libraries for correct linkage.</p>
 <h1><a class="anchor" id="autotoc_md6"></a>
 Documentation</h1>
 <ul>
-<li>See doxygen generated document</li>
-<li>Method for ready check is universal, NOT efficent. Optimize send data for your application!</li>
+<li>See doxygen generated document ``` </li>
 </ul>
-<h2><a class="anchor" id="autotoc_md7"></a>
-Example Code</h2>
-<div class="fragment"><div class="line"><span class="keywordtype">void</span> main(<span class="keywordtype">void</span>) </div>
-<div class="line">{</div>
-<div class="line">  <span class="keyword">struct </span>s_sn76489 sn76489;</div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* OSCCON SETUP */</span></div>
-<div class="line">  OSCCONbits.IRCF = 0x7;</div>
-<div class="line">  OSCCONbits.OSTS = 0;</div>
-<div class="line">  OSCCONbits.SCS  = 0x3;</div>
-<div class="line"> </div>
-<div class="line">  OSCCON2bits.PLLEN = 1;</div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* PORT E SETUP */</span></div>
-<div class="line">  INTCON2bits.nRBPU = 1;</div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* disable analog inputs */</span></div>
-<div class="line">  ANSELA = 0;</div>
-<div class="line">  ANSELC = 0;</div>
-<div class="line">  ANSELD = 0;</div>
-<div class="line">  ANSELE = 0;</div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* wait for chip to be ready */</span></div>
-<div class="line">  __delay_ms(10);</div>
-<div class="line"> </div>
-<div class="line">  initSN76489port(&amp;sn76489, &amp;TRISA, &amp;TRISD, &amp;TRISC, 6, 7, 0);</div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* mutes all channels as default */</span></div>
-<div class="line">  <a class="code" href="sn76489_8h.html#a622c581004fd919f9d35452752050649">initSN76489</a>(&amp;sn76489, &amp;LATA, &amp;LATD, &amp;PORTC);</div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">/* voice one freq */</span></div>
-<div class="line">  </div>
-<div class="line">  <span class="comment">/* set attenuation */</span></div>
-<div class="line">  <a class="code" href="sn76489_8h.html#a7dba6ec9204201fa24953c9feee2ec6e">setSN76489voice_attn</a>(&amp;sn76489, 1, 2);</div>
-<div class="line">  </div>
-<div class="line">  <span class="comment">/* set frequency to 440 hz */</span></div>
-<div class="line">  <a class="code" href="sn76489_8h.html#ac3456c139cb0697f753cdc320bece47d">setSN76489voice_freq</a>(&amp;sn76489, 1, 254);</div>
-<div class="line">  </div>
-<div class="line">  <span class="comment">/* play this lovely tune forever */</span></div>
-<div class="line">  <span class="keywordflow">for</span>(;;);</div>
-<div class="line">  </div>
-<div class="line">}</div>
-<div class="ttc" id="asn76489_8h_html_a622c581004fd919f9d35452752050649"><div class="ttname"><a href="sn76489_8h.html#a622c581004fd919f9d35452752050649">initSN76489</a></div><div class="ttdeci">void initSN76489()</div><div class="ttdoc">Initialize sn76489 to mute all channels.</div></div>
-<div class="ttc" id="asn76489_8h_html_a7dba6ec9204201fa24953c9feee2ec6e"><div class="ttname"><a href="sn76489_8h.html#a7dba6ec9204201fa24953c9feee2ec6e">setSN76489voice_attn</a></div><div class="ttdeci">void setSN76489voice_attn(uint8_t voice, uint8_t attenuate)</div><div class="ttdoc">Set sn76489 voice attenuation.</div></div>
-<div class="ttc" id="asn76489_8h_html_ac3456c139cb0697f753cdc320bece47d"><div class="ttname"><a href="sn76489_8h.html#ac3456c139cb0697f753cdc320bece47d">setSN76489voice_freq</a></div><div class="ttdeci">void setSN76489voice_freq(uint8_t voice, uint16_t freqDiv)</div><div class="ttdoc">Set sn76489 voice frequency.</div></div>
-</div><!-- fragment --> </div></div><!-- contents -->
+</div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

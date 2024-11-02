@@ -32,17 +32,17 @@
 <A
  HREF="node2.html">
 <IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
-<A ID="tex2html45"
+<A ID="tex2html55"
   HREF="node1.html">
 <IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
 <B> Next:</B> <A
- HREF="node4.html">Dependecies</A>
+ HREF="node4.html">Dependencies</A>
 <B> Up:</B> <A
  HREF="node2.html">Usage</A>
 <B> Previous:</B> <A
  HREF="node2.html">Usage</A>
- &nbsp; <B>  <A ID="tex2html46"
+ &nbsp; <B>  <A ID="tex2html56"
   HREF="node1.html">Contents</A></B> 
 <BR>
 <BR></DIV>
@@ -55,11 +55,49 @@ Introduction</A>
 <P>
 This manual describes how to use the RODAC (Retro Only Device Application Creation) system for development.
   Items such as how to build included apps, what the structure of the system looks like, and how to create your
-  own app is included. The final section are links to doxygen generatated documentation about the drivers used
+  own app is included. The final section are links to doxygen generated documentation about the drivers used
   by this system.
+  
+<P>
+RODAC is a multisystem development kit that targets retro systems with a z80 CPU and TMS based video display
+  processors. Various sound and other IO peripheral are supported. RODAC is made to be a easy to use by creating
+  a modern directory structure and library system for the code. All code, outside of the C runtime is written
+  in C. This makes porting between systems easier and the code readable. Applications can be made to target
+  all or just a few of the systems architectures by including only the makefiles for the those systems. This is due to each
+  architecture using the same file structure.
+  
+<P>
+Overall the system makes adding new architecture targets, applications, and drivers easy. Allowing other systems
+  to be added quickly and effortlessly. Inline assembler is avoided so future iterations may support other CPU targets,
+  though this is a distant goal. RODAC is a development kit for retro systems that makes development about the
+  application, not the processes of trying to build it.
 
 <P>
-<BR><HR>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A ID="tex2html55"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A
+ HREF="node4.html">Dependencies</A>
+<B> Up:</B> <A
+ HREF="node2.html">Usage</A>
+<B> Previous:</B> <A
+ HREF="node2.html">Usage</A>
+ &nbsp; <B>  <A ID="tex2html56"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
 
 </BODY>
 </HTML>

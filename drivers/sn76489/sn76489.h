@@ -3,11 +3,6 @@
  * @brief   Library for sn76489 sound chip.
  * @author  Jay Convertino(electrobs@gmail.com)
  * @date    2022.01.23
- * @details OH SO MANY
- * @version 0.0.1
- * 
- * @TODO
- *  - Add in a better way to enable/disable delay setting
  * 
  * @license mit
  * 

@@ -3,8 +3,8 @@
 <!--Converted with LaTeX2HTML 2021.2 (Released July 1, 2021) -->
 <HTML lang="en">
 <HEAD>
-<TITLE>GISND Doxygen</TITLE>
-<META NAME="description" CONTENT="GISND Doxygen">
+<TITLE>Defines header</TITLE>
+<META NAME="description" CONTENT="Defines header">
 <META NAME="keywords" CONTENT="RODAC">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -15,6 +15,7 @@
 
 <LINK REL="STYLESHEET" HREF="RODAC.css">
 
+<LINK REL="next" HREF="node19.html">
 <LINK REL="previous" HREF="node17.html">
 <LINK REL="next" HREF="node19.html">
 </HEAD>
@@ -26,31 +27,33 @@
  HREF="node19.html">
 <IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
 <A
- HREF="node15.html">
+ HREF="node14.html">
 <IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
 <A
  HREF="node17.html">
 <IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
-<A ID="tex2html83"
+<A ID="tex2html111"
   HREF="node1.html">
 <IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
 <B> Next:</B> <A
- HREF="node19.html">About this document ...</A>
+ HREF="node19.html">Source file base</A>
 <B> Up:</B> <A
- HREF="node15.html">Driver Documentation</A>
+ HREF="node14.html">Architecture Creation</A>
 <B> Previous:</B> <A
- HREF="node17.html">SN76489 Doxygen</A>
- &nbsp; <B>  <A ID="tex2html84"
+ HREF="node17.html">Base header</A>
+ &nbsp; <B>  <A ID="tex2html112"
   HREF="node1.html">Contents</A></B> 
 <BR>
 <BR></DIV>
 <!--End of Navigation Panel-->
 
-<H2><A ID="SECTION00063000000000000000">
-GISND Doxygen</A>
-</H2>
-  <a href="https://sparkletron.github.io/RODAC/manual/dox/gisnd/html/index.html">GISND HTML Doxygen</a>
+<H4><A ID="SECTION00032040000000000000">
+Defines header</A>
+</H4> contains all the defines for the system. At this moment this document will not list each one, but will talk about the general idea.
+  The defines included contain button bit locations for the getController functions. Another set of defines, that end in  _ADDR are all port addresses of the
+  devices connected to the z80 processor. Variables ending in _PORT are the z80 io port locations (0 to 255) of the devices to access. Then there are two defines
+  called ei() (enable interrupt) and di() (disable interrupt). This was done to match the original xc8-cc PIC library calls that the driver libraries where ripped from.
 
 <P>
 <BR><HR>

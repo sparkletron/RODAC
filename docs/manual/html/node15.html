@@ -3,8 +3,8 @@
 <!--Converted with LaTeX2HTML 2021.2 (Released July 1, 2021) -->
 <HTML lang="en">
 <HEAD>
-<TITLE>Driver Documentation</TITLE>
-<META NAME="description" CONTENT="Driver Documentation">
+<TITLE>The structure</TITLE>
+<META NAME="description" CONTENT="The structure">
 <META NAME="keywords" CONTENT="RODAC">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -15,8 +15,8 @@
 
 <LINK REL="STYLESHEET" HREF="RODAC.css">
 
-<LINK REL="next" HREF="node19.html">
-<LINK REL="previous" HREF="node11.html">
+<LINK REL="next" HREF="node16.html">
+<LINK REL="previous" HREF="node14.html">
 <LINK REL="next" HREF="node16.html">
 </HEAD>
 
@@ -27,45 +27,44 @@
  HREF="node16.html">
 <IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
 <A
- HREF="RODAC.html">
+ HREF="node14.html">
 <IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
 <A
  HREF="node14.html">
 <IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
-<A ID="tex2html74"
+<A ID="tex2html105"
   HREF="node1.html">
 <IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
 <B> Next:</B> <A
- HREF="node16.html">TMS99XX Doxygen</A>
+ HREF="node16.html">Makefile.mk</A>
 <B> Up:</B> <A
- HREF="RODAC.html">RODAC</A>
+ HREF="node14.html">Architecture Creation</A>
 <B> Previous:</B> <A
- HREF="node14.html">Application Targets</A>
- &nbsp; <B>  <A ID="tex2html75"
+ HREF="node14.html">Architecture Creation</A>
+ &nbsp; <B>  <A ID="tex2html106"
   HREF="node1.html">Contents</A></B> 
 <BR>
 <BR></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A ID="SECTION00060000000000000000">
-Driver Documentation</A>
-</H1>
+<H4><A ID="SECTION00032010000000000000">
+The structure</A>
+</H4>of the architecture of each system is consistent. All architectures are located in the arch folder in the root of RODAC.
+  Each one has its own makefile.mk with the name SYSTEM.mk. Where SYSTEM is the target. For instance coleco.mk is for the colecovision. The base header (base.h)
+  file is for all of the architecture targets and holds defines and functions that are used for all. In the architecture folder named after the target, Colecovision the name would be coleco,
+  contain the header file defines.h and the source files. The defines.h contains the port locations and memory map locations that are used by drivers. The base.c file
+  is the actual functions definitions of the declared functions in base.h. The makefile is a universal build for the target system library. To create a new architecture i
+  t is recommended to copy an existing system and rename it.
+  <TABLE FRAME="VOID" CELLPADDING="4"><TR><TD>
+<PRE>
+$ cp -r coleco example
+$ cp coleco.mk example.mk
+</PRE>
+</TD></TR></TABLE>
+  The above commands will copy and rename the folder and all its contents to example, and copy the makefile to a new file named example.mk.
 
 <P>
-<BR><HR>
-<!--Table of Child-Links-->
-<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
-
-<UL CLASS="ChildLinks">
-<LI><A ID="tex2html76"
-  HREF="node16.html">TMS99XX Doxygen</A>
-<LI><A ID="tex2html77"
-  HREF="node17.html">SN76489 Doxygen</A>
-<LI><A ID="tex2html78"
-  HREF="node18.html">GISND Doxygen</A>
-</UL>
-<!--End of Table of Child-Links-->
 <BR><HR>
 
 </BODY>

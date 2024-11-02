@@ -3,8 +3,8 @@
 <!--Converted with LaTeX2HTML 2021.2 (Released July 1, 2021) -->
 <HTML lang="en">
 <HEAD>
-<TITLE>TMS99XX Doxygen</TITLE>
-<META NAME="description" CONTENT="TMS99XX Doxygen">
+<TITLE>Makefile.mk</TITLE>
+<META NAME="description" CONTENT="Makefile.mk">
 <META NAME="keywords" CONTENT="RODAC">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -27,31 +27,72 @@
  HREF="node17.html">
 <IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
 <A
- HREF="node15.html">
+ HREF="node14.html">
 <IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
 <A
  HREF="node15.html">
 <IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
-<A ID="tex2html79"
+<A ID="tex2html107"
   HREF="node1.html">
 <IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
 <B> Next:</B> <A
- HREF="node17.html">SN76489 Doxygen</A>
+ HREF="node17.html">Base header</A>
 <B> Up:</B> <A
- HREF="node15.html">Driver Documentation</A>
+ HREF="node14.html">Architecture Creation</A>
 <B> Previous:</B> <A
- HREF="node15.html">Driver Documentation</A>
- &nbsp; <B>  <A ID="tex2html80"
+ HREF="node15.html">The structure</A>
+ &nbsp; <B>  <A ID="tex2html108"
   HREF="node1.html">Contents</A></B> 
 <BR>
 <BR></DIV>
 <!--End of Navigation Panel-->
 
-<H2><A ID="SECTION00061000000000000000">
-TMS99XX Doxygen</A>
-</H2>
-  <a href="https://sparkletron.github.io/RODAC/manual/dox/tms99XX/html/index.html">TMS99XX HTML Doxygen</a>
+<H4><A ID="SECTION00032020000000000000">
+Makefile.mk</A>
+</H4> are the various makefiles in the arch folder named for their architecture target. In this case we are looking at coleco.mk.
+  In coleco.mk the system is setup by variables, they are shown below.
+
+<P>
+<TABLE FRAME="VOID" CELLPADDING="4"><TR><TD>
+<PRE>
+SYS_DEFINE := _COLECO
+ARCH  := z80
+
+BASELIBPATH := ../../arch/
+BASELIBARCH := coleco
+BASELIBNAME := $(BASELIBPATH)$(BASELIBARCH)/base.lib
+
+CODELOC   := 0x8100
+DATALOC   := 0x7000
+IRAMSIZE  := 1024
+</PRE>
+</TD></TR></TABLE>
+
+<P>
+The above variables control the base system information, they are the following.
+
+<P>
+
+<UL>
+<LI><SPAN  CLASS="textbf">SYS_DEFINE</SPAN> A define used in various other C files to switch out code. Should only be used in applications sparingly.
+</LI>
+<LI><SPAN  CLASS="textbf">ARCH</SPAN> Defines the CPU target, currently only z80 is supported.
+</LI>
+<LI><SPAN  CLASS="textbf">BASELIBPATH</SPAN> Path to this arch folder, relative to the apps folder.
+</LI>
+<LI><SPAN  CLASS="textbf">BASELIBARCH</SPAN> Name for the architecture. This should be the system name and match the folder and makefile.mk name.
+</LI>
+<LI><SPAN  CLASS="textbf">BASELIBNAME</SPAN> Complete path and name for the base library file.
+</LI>
+<LI><SPAN  CLASS="textbf">CODELOC</SPAN> Start of the C code location. This is after the crt0.s.
+</LI>
+<LI><SPAN  CLASS="textbf">DATALOC</SPAN> Start of the RAM location of the system.
+</LI>
+<LI><SPAN  CLASS="textbf">IRAMSIZE</SPAN> Number of bytes of RAM the system has.
+  
+</LI>
+</UL>
 
 <P>
 <BR><HR>

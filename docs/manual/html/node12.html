@@ -3,8 +3,8 @@
 <!--Converted with LaTeX2HTML 2021.2 (Released July 1, 2021) -->
 <HTML lang="en">
 <HEAD>
-<TITLE>Makefile</TITLE>
-<META NAME="description" CONTENT="Makefile">
+<TITLE>The structure</TITLE>
+<META NAME="description" CONTENT="The structure">
 <META NAME="keywords" CONTENT="RODAC">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -27,61 +27,40 @@
  HREF="node13.html">
 <IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
 <A
- HREF="node10.html">
+ HREF="node11.html">
 <IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
 <A
  HREF="node11.html">
 <IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
-<A ID="tex2html93"
+<A ID="tex2html96"
   HREF="node1.html">
 <IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
 <B> Next:</B> <A
- HREF="node13.html">The source</A>
+ HREF="node13.html">Makefile</A>
 <B> Up:</B> <A
- HREF="node10.html">Application Creation</A>
+ HREF="node11.html">Application Creation</A>
 <B> Previous:</B> <A
- HREF="node11.html">The structure</A>
- &nbsp; <B>  <A ID="tex2html94"
+ HREF="node11.html">Application Creation</A>
+ &nbsp; <B>  <A ID="tex2html97"
   HREF="node1.html">Contents</A></B> 
 <BR>
 <BR></DIV>
 <!--End of Navigation Panel-->
 
-<H4><A ID="SECTION00031020000000000000">
-Makefile</A>
-</H4>kicks off the main build and contains the system targets available. All builds call sdcc as the compiler and use
-  CFLAGS and LFLAGS to set various flags. These flags also include variables that are set by the system include makefiles. This makefile
-  will call all other makefiles used for driver, and architecture builds.
-
-<P>
-<TABLE FRAME="VOID" CELLPADDING="4"><TR><TD>
+<H4><A ID="SECTION00031010000000000000">
+The structure</A>
+</H4>of the apps should be consistent. All apps are located in the apps folder.
+  The base folder should be a recognizable name. For this examples we will call it example.
+  The easy way to get started is the to copy and rename the hello_world example.
+  <TABLE FRAME="VOID" CELLPADDING="4"><TR><TD>
 <PRE>
-ifeq (coleco_sgm,$(MAKECMDGOALS))
-include ../../arch/coleco_sgm.mk
-LIBPATH += ../../drivers/gisnd
-LIBPATH += ../../drivers/sn76489
-BIN    := $(addprefix $(MAKECMDGOALS)_, $(BIN))
-DIROBJ := $(addprefix $(MAKECMDGOALS)_, $(DIROBJ))
-endif
+    $ cp -r hello_world example
 </PRE>
 </TD></TR></TABLE>
-
-<P>
-The above is an example of add a architecure target. In this case if the make variable MAKECMDGOALS is equal to coleco_sgm, the the makefile for it is included along with driver libraries.
-  This will also prefix all the outputs for the application with the contents of MAKECMDGOALS. Alterations such as changing coleco_sgm to your new architecture, or adding or removing drivers
-  is done in this block.
-
-<P>
-A few last notes, all source files will be added from the source directory (src). If you need to include headers, I recommend putting them in there own folder and adding a flag to the end of CFLAGS.
-  The following is an example of using a variable to add a header directory.
-
-<P>
-<TABLE FRAME="VOID" CELLPADDING="4"><TR><TD>
-<PRE>
--I$(HEADER_DIR)
-</PRE>
-</TD></TR></TABLE>
+  The above command will copy and rename the folder to example. This assumes hello_world has not been built.
+  This folder will contain a src directory, a makefile, and a readme. I recommend a readme so the user can quickly find out what
+  the program does. You now have a starting point for creating your application.
 
 <P>
 <BR><HR>

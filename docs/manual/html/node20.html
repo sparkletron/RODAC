@@ -3,8 +3,8 @@
 <!--Converted with LaTeX2HTML 2021.2 (Released July 1, 2021) -->
 <HTML lang="en">
 <HEAD>
-<TITLE>C runtime file</TITLE>
-<META NAME="description" CONTENT="C runtime file">
+<TITLE>Source file base</TITLE>
+<META NAME="description" CONTENT="Source file base">
 <META NAME="keywords" CONTENT="RODAC">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -15,6 +15,7 @@
 
 <LINK REL="STYLESHEET" HREF="RODAC.css">
 
+<LINK REL="next" HREF="node21.html">
 <LINK REL="previous" HREF="node19.html">
 <LINK REL="next" HREF="node21.html">
 </HEAD>
@@ -26,31 +27,30 @@
  HREF="node21.html">
 <IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
 <A
- HREF="node14.html">
+ HREF="node15.html">
 <IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
 <A
  HREF="node19.html">
 <IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
-<A ID="tex2html115"
+<A ID="tex2html118"
   HREF="node1.html">
 <IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
 <B> Next:</B> <A
- HREF="node21.html">Driver Creation</A>
+ HREF="node21.html">C runtime file</A>
 <B> Up:</B> <A
- HREF="node14.html">Architecture Creation</A>
+ HREF="node15.html">Architecture Creation</A>
 <B> Previous:</B> <A
- HREF="node19.html">Source file base</A>
- &nbsp; <B>  <A ID="tex2html116"
+ HREF="node19.html">Defines header</A>
+ &nbsp; <B>  <A ID="tex2html119"
   HREF="node1.html">Contents</A></B> 
 <BR>
 <BR></DIV>
 <!--End of Navigation Panel-->
 
-<H4><A ID="SECTION00032060000000000000">
-C runtime file</A>
-</H4> is the set of assembly instructions that setup the system in question and executes the main C function. This is written on a system by system basis.
-  Differences such as SGM vs non-SGM Colecovision consoles are dealt with here. Where stack pointers should start, and how to initialize data regions.
+<H4><A ID="SECTION00032050000000000000">
+Source file base</A>
+</H4> is the source file that implements the base.h functions. It contains the function pointers that end up linking to crt0.s for IRQ calls.
 
 <P>
 <BR><HR>

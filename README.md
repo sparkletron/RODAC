@@ -32,6 +32,7 @@ license: MIT
 ## Applications
   - hello_world
   - multicart
+  - controller_check
 
 ## Release Versions
 ### Current

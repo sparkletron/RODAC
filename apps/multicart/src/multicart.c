@@ -101,7 +101,7 @@ void main(void)
   for(;;)
   {
     /* get controller one input */
-    uint8_t controller = getControllerOne();
+    uint16_t controller = getControllerOne();
 
     /* when fire is pressed, start selected game */
     if(!((controller >> FIRE_BIT) & 0x01))

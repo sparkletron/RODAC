@@ -36,13 +36,13 @@ void set_spin_irq_callback(void (*callback)(void));
  *
  * @return  A unsigned 16 bit number contains all controller states.
  ******************************************************************************/
-uint8_t getControllerOne();
+uint16_t getControllerOne();
 
 /***************************************************************************//**
  * @brief   read controller two port.
  *
  * @return  A unsigned 16 bit number contains all controller states.
  ******************************************************************************/
-uint8_t getControllerTwo();
+uint16_t getControllerTwo();
 
 #endif

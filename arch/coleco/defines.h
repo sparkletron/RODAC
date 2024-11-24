@@ -11,7 +11,8 @@
 #define DOWN_BIT     2
 #define RIGHT_BIT    1
 #define FIRE_BIT     6
-#define ARM_BIT      6
+#define ARM_BIT      14
+#define KEYPAD_BIT   8
 #define KEYPAD_MASK  0x0F
 
 #define VDP_DATA_ADDR     0xBE

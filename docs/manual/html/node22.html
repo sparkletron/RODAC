@@ -3,8 +3,8 @@
 <!--Converted with LaTeX2HTML 2021.2 (Released July 1, 2021) -->
 <HTML lang="en">
 <HEAD>
-<TITLE>The structure</TITLE>
-<META NAME="description" CONTENT="The structure">
+<TITLE>Driver Creation</TITLE>
+<META NAME="description" CONTENT="Driver Creation">
 <META NAME="keywords" CONTENT="RODAC">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -15,8 +15,7 @@
 
 <LINK REL="STYLESHEET" HREF="RODAC.css">
 
-<LINK REL="next" HREF="node23.html">
-<LINK REL="previous" HREF="node21.html">
+<LINK REL="previous" HREF="node15.html">
 <LINK REL="next" HREF="node23.html">
 </HEAD>
 
@@ -27,7 +26,7 @@
  HREF="node23.html">
 <IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
 <A
- HREF="node21.html">
+ HREF="node10.html">
 <IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
 <A
  HREF="node21.html">
@@ -37,36 +36,36 @@
 <IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
 <B> Next:</B> <A
- HREF="node23.html">Makefile</A>
+ HREF="node23.html">The structure</A>
 <B> Up:</B> <A
- HREF="node21.html">Driver Creation</A>
+ HREF="node10.html">Creating new apps, drivers,</A>
 <B> Previous:</B> <A
- HREF="node21.html">Driver Creation</A>
+ HREF="node21.html">C runtime file</A>
  &nbsp; <B>  <A ID="tex2html123"
   HREF="node1.html">Contents</A></B> 
 <BR>
 <BR></DIV>
 <!--End of Navigation Panel-->
 
-<H4><A ID="SECTION00033010000000000000">
-The structure</A>
-</H4>of the drivers is consistent across all drivers. They contain a header that is doxygen commented, makefile, and src directory containing the source file.
-  A license can also be added if need be, along with additional sources such as headers and such. There are no files in the drivers folder, just folders that contains the driver folders
-  with the files for the target driver. The output is follows the name of the folder in the drivers folder and is case sensitive. Easy way of starting creation of your own driver
-  is to copy one close to what you're targeting. In this case I will add a new sound chip, example.
+<H2><A ID="SECTION00033000000000000000">
+Driver Creation</A>
+</H2>
 
 <P>
-<TABLE FRAME="VOID" CELLPADDING="4"><TR><TD>
-<PRE>
-$ cp -r gisnd example
-</PRE>
-</TD></TR></TABLE>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
-<P>
-The above commands will copy and rename the folder and all its contents to example. One item to keep in mind is any ports you read and write from for the driver are defined in the base
-  system architecture in defines.h . This is handled by the compiler in the linking stage.
-
-<P>
+<UL CLASS="ChildLinks">
+<LI><UL>
+<LI><A ID="tex2html124"
+  HREF="node23.html">The structure</A>
+<LI><A ID="tex2html125"
+  HREF="node24.html">Makefile</A>
+<LI><A ID="tex2html126"
+  HREF="node25.html">Header</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
 <BR><HR>
 
 </BODY>

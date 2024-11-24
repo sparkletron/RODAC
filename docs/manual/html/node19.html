@@ -3,8 +3,8 @@
 <!--Converted with LaTeX2HTML 2021.2 (Released July 1, 2021) -->
 <HTML lang="en">
 <HEAD>
-<TITLE>Source file base</TITLE>
-<META NAME="description" CONTENT="Source file base">
+<TITLE>Defines header</TITLE>
+<META NAME="description" CONTENT="Defines header">
 <META NAME="keywords" CONTENT="RODAC">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -27,30 +27,33 @@
  HREF="node20.html">
 <IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
 <A
- HREF="node14.html">
+ HREF="node15.html">
 <IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
 <A
  HREF="node18.html">
 <IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
-<A ID="tex2html113"
+<A ID="tex2html116"
   HREF="node1.html">
 <IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
 <B> Next:</B> <A
- HREF="node20.html">C runtime file</A>
+ HREF="node20.html">Source file base</A>
 <B> Up:</B> <A
- HREF="node14.html">Architecture Creation</A>
+ HREF="node15.html">Architecture Creation</A>
 <B> Previous:</B> <A
- HREF="node18.html">Defines header</A>
- &nbsp; <B>  <A ID="tex2html114"
+ HREF="node18.html">Base header</A>
+ &nbsp; <B>  <A ID="tex2html117"
   HREF="node1.html">Contents</A></B> 
 <BR>
 <BR></DIV>
 <!--End of Navigation Panel-->
 
-<H4><A ID="SECTION00032050000000000000">
-Source file base</A>
-</H4> is the source file that implements the base.h functions. It contains the function pointers that end up linking to crt0.s for IRQ calls.
+<H4><A ID="SECTION00032040000000000000">
+Defines header</A>
+</H4> contains all the defines for the system. At this moment this document will not list each one, but will talk about the general idea.
+  The defines included contain button bit locations for the getController functions. Another set of defines, that end in  _ADDR are all port addresses of the
+  devices connected to the z80 processor. Variables ending in _PORT are the z80 io port locations (0 to 255) of the devices to access. Then there are two defines
+  called ei() (enable interrupt) and di() (disable interrupt). This was done to match the original xc8-cc PIC library calls that the driver libraries where ripped from.
 
 <P>
 <BR><HR>
